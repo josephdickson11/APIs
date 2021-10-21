@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-#create city model
 from pydantic import BaseModel
+import requests
+
 
 app = FastAPI()
 
@@ -20,11 +21,19 @@ def index():
 
 @app.get('/cities')
 def get_cities():
-    return db
+    results = []
+    for city in db:
+        r = requests.get(f'http://worldtimeapi.org/api/timezone/{city["timezone"]}')
+        current_time = r.json()['datetime']
+        results.append({'name': city['name'], 'timezone': city['timezone'], 'current time': current_time})
+    return results
 
 @app.get('/cities/{city_id}')
 def get_city(city_id: int):
-    return db[city_id-1]
+    city = db[city_id-1]
+    r = requests.get(f'http://worldtimeapi.org/api/timezone/{city["timezone"]}')
+    current_time = r.json()['datetime']
+    return {'name': city['name'], 'timezone': city['timezone'], 'current time': current_time}
 
 @app.post('/cities/')
 def create_city(city: City):
