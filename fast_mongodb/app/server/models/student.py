@@ -1,12 +1,12 @@
 #create student model
 
 from typing import Optional
-from pydantic import Basemodel, Emailstr, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
-class StudentSchema(Basemodel):
+class StudentSchema(BaseModel):
     fullname: str = Field(...)
-    email: Emailstr = Field(...)
+    email: EmailStr = Field(...)
     course_of_study: str = Field(...)
     year: int = Field(..., gt=0, lt=6)
     gpa: float = Field(..., le=4.0)
@@ -22,9 +22,9 @@ class StudentSchema(Basemodel):
             }
         }
 
-class UpdateStudentModel(Basemodel):
+class UpdateStudentModel(BaseModel):
     fullname: Optional[str]
-    email: Optional[Emailstr]
+    email: Optional[EmailStr]
     course_of_study: Optional[str]
     year: Optional[int]
     gpa: Optional[float]

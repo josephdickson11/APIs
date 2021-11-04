@@ -3,7 +3,7 @@
 import motor.motor_asyncio
 from bson.objectid import ObjectId
 
-MONGO_DETAILS = "mongodb://127.0.0.1:27017"
+MONGO_DETAILS = "mongodb://localhost:27017"
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
@@ -37,7 +37,7 @@ async def retrieve_students():
 #CRUD 2: add new students to the database
 async def add_student(student_data: dict) -> dict:
     student = await student_collection.insert_one(student_data)
-    new_student = await student.find_one({"_id":ObjectId(id)})
+    new_student = await student_collection.find_one({"_id": student.inserted_id})
     return student_helper(new_student)
 
 
