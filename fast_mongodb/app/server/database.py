@@ -23,6 +23,8 @@ def student_helper(student) -> dict:
         "GPA": student["gpa"]
     }
 
+
+
 #define CRUD operations for database
 
 #CRUD 1: retrieve all students
