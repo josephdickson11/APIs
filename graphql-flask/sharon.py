@@ -1,5 +1,5 @@
 market_list = ["garri", "meat", "maggi", "salt", "okporoko", "ugwu"]
 
-print(market_list[-1])
-
-print(len(market_list))
+market_list[-1]
+market_list[0]
+len(market_list)
